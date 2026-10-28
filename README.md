@@ -192,3 +192,5 @@ the project.
 
 See `tests/README.md` for prerequisites, environment variables, artifacts, and
 how to interpret failures.
+
+Deployment pipeline verified through Github and Netlify.
