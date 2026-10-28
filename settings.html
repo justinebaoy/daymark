@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Daymark</title>
+    <meta name="description" content="Daymark - Customize your preferences.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <a href="index.html" class="mobile-brand" aria-label="Daymark home">
+                <svg class="mobile-brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                    <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                    <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                </svg>
+                <span>Daymark</span>
+            </a>
+            <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="sidebarNav" aria-label="Open navigation menu">
+                <span class="mobile-menu-icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span>Menu</span>
+            </button>
+        </header>
+        
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebarNav" role="navigation" aria-label="Main navigation">
+            <div class="brand">
+                <a href="index.html" class="brand-link" aria-label="Daymark home">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                        <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                        <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                    <span class="brand-name">Daymark</span>
+                </a>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tasks.html" class="nav-link">My Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Weekly Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link" aria-current="page">Settings</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main">
+            <header class="page-header">
+                <h1 class="page-title">Settings</h1>
+                <p class="page-subtitle">Customize your Daymark experience.</p>
+            </header>
+            
+            <section class="page-body settings-page">
+                <!-- Appearance -->
+                <section class="card" aria-labelledby="appearanceHeading">
+                    <header class="card-header settings-card-header">
+                        <h2 class="card-title" id="appearanceHeading">Appearance</h2>
+                        <p class="settings-description">Choose how Daymark looks. Your preference is saved in this browser.</p>
+                    </header>
+                    <div class="card-body">
+                        <fieldset class="settings-fieldset" id="themeOptions">
+                            <legend class="visually-hidden">Appearance theme</legend>
+                            <div class="settings-choice-grid">
+                                <label class="settings-choice" for="themeLight">
+                                    <input class="settings-radio" type="radio" id="themeLight" name="theme" value="light">
+                                    <span class="settings-choice-content">
+                                        <span class="settings-choice-title">Light</span>
+                                        <span class="settings-choice-description">Warm off-white</span>
+                                    </span>
+                                </label>
+                                <label class="settings-choice" for="themeDark">
+                                    <input class="settings-radio" type="radio" id="themeDark" name="theme" value="dark">
+                                    <span class="settings-choice-content">
+                                        <span class="settings-choice-title">Dark</span>
+                                        <span class="settings-choice-description">Lower light</span>
+                                    </span>
+                                </label>
+                                <label class="settings-choice" for="themeSystem">
+                                    <input class="settings-radio" type="radio" id="themeSystem" name="theme" value="system" checked>
+                                    <span class="settings-choice-content">
+                                        <span class="settings-choice-title">System</span>
+                                        <span class="settings-choice-description">Follow your device</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <p class="settings-status" id="themeStatus" role="status" aria-live="polite" hidden></p>
+                    </div>
+                </section>
+
+                <!-- Data -->
+                <section class="card" aria-labelledby="dataHeading">
+                    <header class="card-header settings-card-header">
+                        <h2 class="card-title" id="dataHeading">Your data</h2>
+                        <p class="settings-description">Export a copy of your tasks or remove them from this browser.</p>
+                    </header>
+                    <div class="card-body">
+                        <div class="settings-data-row">
+                            <div>
+                                <p class="settings-data-label">Saved tasks</p>
+                                <p class="settings-task-count" id="settingsTaskCount">&mdash;</p>
+                            </div>
+                            <div class="settings-actions">
+                                <button class="btn" id="exportTasksButton" type="button" disabled>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    Export JSON
+                                </button>
+                                <button class="btn btn-danger" id="clearTasksButton" type="button" disabled>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                    Clear all tasks
+                                </button>
+                            </div>
+                        </div>
+                        <p class="settings-status" id="dataStatus" role="status" aria-live="polite" hidden></p>
+                        <p class="settings-help" id="storageNote">Tasks are stored only in this browser. Clearing browser data removes them.</p>
+                    </div>
+                </section>
+
+                <!-- About -->
+                <section class="card" aria-labelledby="aboutHeading">
+                    <header class="card-header settings-card-header">
+                        <h2 class="card-title" id="aboutHeading">About</h2>
+                        <p class="settings-description">A few details about this app.</p>
+                    </header>
+                    <div class="card-body">
+                        <div class="settings-about">
+                            <p class="settings-about-name">Daymark</p>
+                            <p class="settings-about-text">
+                                Daymark is a simple, minimalist productivity app designed to help you
+                                organize your tasks, manage deadlines, and keep track of your progress.
+                                With a clean interface and a calm, distraction-free design, Daymark helps
+                                you focus on what matters most, one task at a time.
+                            </p>
+                            <p class="settings-about-text">
+                                Your tasks are stored locally in your browser, so your data stays on
+                                your device. Daymark does not automatically sync tasks between devices.
+                            </p>
+                            <dl class="settings-about-list">
+                                <div class="settings-about-item">
+                                    <dt>Storage</dt>
+                                    <dd>This browser only</dd>
+                                </div>
+                                <div class="settings-about-item">
+                                    <dt>Sync</dt>
+                                    <dd>Not available</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <!-- Clear all tasks confirmation -->
+    <dialog class="dialog dialog-sm" id="clearTasksDialog" aria-labelledby="clearTasksDialogTitle" aria-describedby="clearTasksDialogText">
+        <header class="dialog-header">
+            <h2 class="dialog-title" id="clearTasksDialogTitle">Clear all tasks?</h2>
+            <button class="icon-button dialog-close" type="button" data-close-clear-dialog aria-label="Close dialog">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </header>
+        <div class="dialog-body">
+            <p class="dialog-text" id="clearTasksDialogText">
+                This will permanently delete <strong id="clearTasksDialogCount">all saved tasks</strong>
+                from this browser. This cannot be undone.
+            </p>
+        </div>
+        <footer class="dialog-footer">
+            <button class="btn" type="button" data-close-clear-dialog id="cancelClearTasks">Cancel</button>
+            <button class="btn btn-danger" type="button" id="confirmClearTasks">Clear all tasks</button>
+        </footer>
+    </dialog>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/task-store.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

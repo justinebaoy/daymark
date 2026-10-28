@@ -1,0 +1,66 @@
+# Daymark — version control exclusions
+# Static site: HTML, CSS, and vanilla JavaScript only.
+
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor and local configuration
+.vscode/
+.idea/
+*.code-workspace
+*.local
+*.suo
+*.user
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials*
+!credentials.example*
+
+# Local browser profiles and caches
+edge-profile*/
+.edge-profile*/
+browser-profile*/
+.chrome-profile*/
+chrome-profile*/
+**/User Data/
+**/Default/Cache/
+
+# Temporary audit and test artifacts
+audit/
+audits/
+screenshots/
+test-output/
+test-results/
+coverage/
+phase*-audit.js
+phase*-results.json
+p3-*.png
+*.audit.png
+*.tmp
+*.temp
+*.log
+~$*
+
+# Generated exports and downloads
+exports/
+downloads/
+daymark-tasks-*.json
+
+# Dependency and build output (not currently used)
+node_modules/
+dist/
+build/

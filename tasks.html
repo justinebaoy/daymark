@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks - Daymark</title>
+    <meta name="description" content="Daymark - Manage your tasks and to-dos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <a href="index.html" class="mobile-brand" aria-label="Daymark home">
+                <svg class="mobile-brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                    <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                    <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                </svg>
+                <span>Daymark</span>
+            </a>
+            <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="sidebarNav" aria-label="Open navigation menu">
+                <span class="mobile-menu-icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span>Menu</span>
+            </button>
+        </header>
+        
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebarNav" role="navigation" aria-label="Main navigation">
+            <div class="brand">
+                <a href="index.html" class="brand-link" aria-label="Daymark home">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                        <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                        <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                    <span class="brand-name">Daymark</span>
+                </a>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tasks.html" class="nav-link" aria-current="page">My Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Weekly Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">Settings</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main">
+            <header class="page-header">
+                <div class="page-header-actions">
+                    <div class="page-header-text">
+                        <h1 class="page-title">My Tasks</h1>
+                        <p class="page-subtitle">Organize and track your priorities.</p>
+                    </div>
+                    <button class="btn btn-primary task-add-button" id="addTaskButton" type="button">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>Add task</span>
+                    </button>
+                </div>
+            </header>
+            
+            <section class="page-body tasks-page">
+                <!-- Search, filter, and sort controls -->
+                <section class="task-controls" aria-label="Search, filter, and sort tasks">
+                    <div class="task-search">
+                        <label class="visually-hidden" for="taskSearch">Search tasks by title</label>
+                        <svg class="task-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input class="input task-search-input" type="search" id="taskSearch" placeholder="Search tasks by title" autocomplete="off" aria-keyshortcuts="/">
+                        <kbd class="task-search-shortcut" aria-hidden="true">/</kbd>
+                    </div>
+                    
+                    <div class="task-filter-grid">
+                        <div class="filter-field">
+                            <label class="filter-label" for="statusFilter">Status</label>
+                            <select class="input filter-select" id="statusFilter">
+                                <option value="all">All</option>
+                                <option value="active">Active</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-field">
+                            <label class="filter-label" for="priorityFilter">Priority</label>
+                            <select class="input filter-select" id="priorityFilter">
+                                <option value="all">All</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-field">
+                            <label class="filter-label" for="categoryFilter">Category</label>
+                            <select class="input filter-select" id="categoryFilter">
+                                <option value="all">All</option>
+                                <option value="work">Work</option>
+                                <option value="personal">Personal</option>
+                                <option value="study">Study</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-field">
+                            <label class="filter-label" for="sortFilter">Sort by</label>
+                            <select class="input filter-select" id="sortFilter">
+                                <option value="dueDate">Due date</option>
+                                <option value="priority">Priority</option>
+                                <option value="createdAt">Date created</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Task list -->
+                <section class="task-list-region" aria-labelledby="taskListHeading">
+                    <div class="task-list-toolbar">
+                        <h2 class="visually-hidden" id="taskListHeading" tabindex="-1">Task list</h2>
+                        <p class="task-count" id="taskCount" role="status" aria-live="polite">0 tasks</p>
+                        <button class="task-clear-filters" id="clearFilters" type="button" hidden>Clear filters</button>
+                    </div>
+                    
+                    <div class="task-list" id="taskList"></div>
+                    
+                    <div class="task-empty" id="taskEmptyState" hidden>
+                        <div class="task-empty-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                        </div>
+                        <h2 class="task-empty-title" id="taskEmptyTitle">A clear day ahead</h2>
+                        <p class="task-empty-text" id="taskEmptyText">You don't have any tasks yet. Add your first task to get started.</p>
+                        <div class="task-empty-actions">
+                            <button class="btn btn-primary" id="emptyAddButton" type="button">Add your first task</button>
+                            <button class="btn" id="emptyClearButton" type="button" hidden>Clear filters</button>
+                        </div>
+                    </div>
+                    
+                    <p class="sr-only" id="taskAnnouncements" role="status" aria-live="polite"></p>
+                </section>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Reusable task row markup; populated by js/tasks.js -->
+    <template id="taskItemTemplate">
+        <article class="task-item task-item-manage">
+            <input type="checkbox" class="task-checkbox task-toggle">
+            <div class="task-content">
+                <div class="task-heading">
+                    <h3 class="task-title"></h3>
+                    <span class="task-status-completed" hidden>Completed</span>
+                </div>
+                <p class="task-description" hidden></p>
+                <div class="task-meta">
+                    <span class="task-category"></span>
+                    <span class="task-priority"></span>
+                    <span class="task-due" hidden></span>
+                    <span class="task-completed-at" hidden></span>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="icon-button task-edit" type="button" title="Edit task">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                    </svg>
+                    <span class="visually-hidden">Edit task</span>
+                </button>
+                <button class="icon-button icon-button-danger task-delete" type="button" title="Delete task">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                    <span class="visually-hidden">Delete task</span>
+                </button>
+            </div>
+        </article>
+    </template>
+    
+    <!-- Add / edit task dialog -->
+    <dialog class="dialog" id="taskDialog" aria-labelledby="taskDialogTitle">
+        <form class="task-form" id="taskForm" novalidate>
+            <header class="dialog-header">
+                <h2 class="dialog-title" id="taskDialogTitle">Add a task</h2>
+                <button class="icon-button dialog-close" type="button" data-close-dialog aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            
+            <div class="dialog-body">
+                <input type="hidden" id="taskId" name="taskId">
+                
+                <div class="form-field">
+                    <label class="form-label" for="taskTitle">Title <span class="form-required" aria-hidden="true">*</span></label>
+                    <input class="input" type="text" id="taskTitle" name="title" maxlength="120" autocomplete="off" required aria-describedby="taskTitleError">
+                    <p class="form-error" id="taskTitleError" hidden></p>
+                </div>
+                
+                <div class="form-field">
+                    <label class="form-label" for="taskDescription">Description <span class="form-optional">(optional)</span></label>
+                    <textarea class="input textarea" id="taskDescription" name="description" rows="3" maxlength="500"></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="form-label" for="taskDueDate">Due date &amp; time <span class="form-optional">(optional)</span></label>
+                    <input class="input" type="datetime-local" id="taskDueDate" name="dueDate">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label" for="taskPriority">Priority</label>
+                        <select class="input" id="taskPriority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="form-label" for="taskCategory">Category</label>
+                        <select class="input" id="taskCategory" name="category">
+                            <option value="work" selected>Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="study">Study</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <p class="form-error" id="taskFormError" role="alert" hidden></p>
+            </div>
+            
+            <footer class="dialog-footer">
+                <button class="btn" type="button" data-close-dialog>Cancel</button>
+                <button class="btn btn-primary" type="submit" id="taskSubmitButton">Add task</button>
+            </footer>
+        </form>
+    </dialog>
+    
+    <!-- Delete confirmation dialog -->
+    <dialog class="dialog dialog-sm" id="deleteDialog" aria-labelledby="deleteDialogTitle" aria-describedby="deleteDialogText">
+        <header class="dialog-header">
+            <h2 class="dialog-title" id="deleteDialogTitle">Delete task?</h2>
+            <button class="icon-button dialog-close" type="button" data-close-delete-dialog aria-label="Close dialog">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </header>
+        
+        <div class="dialog-body">
+            <p class="dialog-text" id="deleteDialogText">Are you sure you want to delete <strong id="deleteTaskTitle">this task</strong>? This action can't be undone.</p>
+        </div>
+        
+        <footer class="dialog-footer">
+            <button class="btn" type="button" data-close-delete-dialog id="cancelDeleteButton">Cancel</button>
+            <button class="btn btn-danger" type="button" id="confirmDeleteButton">Delete task</button>
+        </footer>
+    </dialog>
+    
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/task-store.js"></script>
+    <script src="js/tasks.js"></script>
+</body>
+</html>

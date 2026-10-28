@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Daymark</title>
+    <meta name="description" content="Daymark - Make room for what matters. Personal productivity dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <a href="index.html" class="mobile-brand" aria-label="Daymark home">
+                <svg class="mobile-brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                    <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                    <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                </svg>
+                <span>Daymark</span>
+            </a>
+            <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-expanded="false" aria-controls="sidebarNav" aria-label="Open navigation menu">
+                <span class="mobile-menu-icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span>Menu</span>
+            </button>
+        </header>
+        
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebarNav" role="navigation" aria-label="Main navigation">
+            <div class="brand">
+                <a href="index.html" class="brand-link" aria-label="Daymark home">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="24" height="4" rx="2" fill="currentColor"/>
+                        <rect x="4" y="14" width="18" height="4" rx="2" fill="currentColor" opacity="0.7"/>
+                        <rect x="4" y="22" width="12" height="4" rx="2" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                    <span class="brand-name">Daymark</span>
+                </a>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link" aria-current="page">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tasks.html" class="nav-link">My Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Weekly Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">Settings</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main">
+            <header class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Make room for what matters.</p>
+            </header>
+            
+            <section class="page-body">
+                <!-- Welcome Header -->
+                <section class="dashboard-welcome" aria-labelledby="welcome-heading">
+                    <h2 id="welcome-heading" class="dashboard-greeting">Good morning.</h2>
+                    <p class="dashboard-date" id="dashboardDate">Monday, October 27, 2026</p>
+                    <p class="dashboard-tagline">Make room for what matters.</p>
+                </section>
+
+                <div class="dashboard-notice" id="dashboardNotice" role="alert" hidden>
+                    <p class="dashboard-notice-text" id="dashboardNoticeText"></p>
+                </div>
+                
+                <!-- Summary Cards -->
+                <section class="dashboard-summary" aria-label="Task summary">
+                    <article class="summary-card">
+                        <div class="summary-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <div class="summary-card-content">
+                            <p class="summary-card-label">Tasks due today</p>
+                            <p class="summary-card-value" id="dashboardDueToday">&mdash;</p>
+                        </div>
+                    </article>
+                    
+                    <article class="summary-card">
+                        <div class="summary-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="summary-card-content">
+                            <p class="summary-card-label">Completed tasks</p>
+                            <p class="summary-card-value" id="dashboardCompleted">&mdash;</p>
+                        </div>
+                    </article>
+                    
+                    <article class="summary-card">
+                        <div class="summary-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="summary-card-content">
+                            <p class="summary-card-label">Remaining tasks</p>
+                            <p class="summary-card-value" id="dashboardRemaining">&mdash;</p>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Daily Focus -->
+                <section class="dashboard-card focus-card" id="focusCard" aria-labelledby="focus-heading">
+                    <header class="dashboard-card-header focus-card-header">
+                        <div class="focus-heading-group">
+                            <div class="focus-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                    <circle cx="12" cy="12" r="8"></circle>
+                                    <circle cx="12" cy="12" r="2.5"></circle>
+                                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+                                </svg>
+                            </div>
+                            <div class="focus-heading-text">
+                                <h2 id="focus-heading" class="dashboard-card-title" tabindex="-1">Today's Focus</h2>
+                                <p class="focus-date" id="focusDate"></p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn focus-manage" id="focusManageButton" hidden>Edit focus</button>
+                    </header>
+
+                    <div class="dashboard-card-body focus-body">
+                        <p class="focus-storage-note" id="focusStorageNote" hidden></p>
+
+                        <div class="focus-intention">
+                            <div class="focus-intention-display" id="focusIntentionDisplay">
+                                <p class="focus-label">Today's intention</p>
+                                <p class="focus-intention-text is-placeholder" id="focusIntentionText">A short intention can anchor the day.</p>
+                                <button type="button" class="focus-text-button" id="focusIntentionEditButton">Add intention</button>
+                            </div>
+
+                            <form class="focus-intention-form" id="focusIntentionForm" novalidate hidden>
+                                <label class="focus-label" for="focusIntentionInput">Today's intention <span class="form-optional">(optional)</span></label>
+                                <textarea class="input textarea focus-intention-input" id="focusIntentionInput" rows="2" maxlength="160" aria-describedby="focusIntentionHint focusIntentionError"></textarea>
+                                <div class="focus-intention-meta">
+                                    <p class="focus-hint" id="focusIntentionHint">Keep it short. Up to 160 characters.</p>
+                                    <p class="focus-hint" id="focusIntentionCount" aria-hidden="true">0 / 160</p>
+                                </div>
+                                <p class="form-error" id="focusIntentionError" hidden></p>
+                                <div class="focus-form-actions">
+                                    <button type="submit" class="btn btn-primary" id="focusIntentionSave">Save intention</button>
+                                    <button type="button" class="btn" id="focusIntentionCancel">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="focus-progress" id="focusProgress" hidden>
+                            <div class="focus-progress-header">
+                                <div>
+                                    <p class="focus-label">Today's progress</p>
+                                    <p class="focus-progress-count" id="focusProgressText">0 of 0 completed</p>
+                                </div>
+                                <p class="focus-progress-percent" id="focusProgressPercent">0%</p>
+                            </div>
+                            <div class="focus-progress-track" id="focusProgressBar" role="progressbar" aria-label="Daily Focus progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="No priorities selected">
+                                <div class="focus-progress-fill" id="focusProgressFill"></div>
+                            </div>
+                            <p class="focus-summary" id="focusSummary"></p>
+                        </div>
+
+                        <div class="focus-task-grid" id="focusTaskList"></div>
+
+                        <div class="focus-empty" id="focusEmpty" hidden>
+                            <p class="focus-empty-title" id="focusEmptyTitle">What matters most today?</p>
+                            <p class="focus-empty-text" id="focusEmptyText">Choose up to three tasks to give the day a clear direction.</p>
+                            <button type="button" class="btn btn-primary" id="focusEmptyButton">Choose priorities</button>
+                            <a href="tasks.html" class="dashboard-card-link" id="focusEmptyLink" hidden>Go to My Tasks</a>
+                        </div>
+
+                        <div class="focus-complete" id="focusComplete" hidden>
+                            <div class="focus-complete-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="focus-complete-title">You made progress on what mattered today.</p>
+                                <p class="focus-complete-text" id="focusCompleteText"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Dashboard Main Grid -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-main">
+                        <!-- Today's Tasks -->
+                        <section class="dashboard-card" aria-labelledby="today-tasks-heading">
+                            <header class="dashboard-card-header">
+                                <h2 id="today-tasks-heading" class="dashboard-card-title" tabindex="-1">Today's Tasks</h2>
+                                <a href="tasks.html" class="dashboard-card-link">View all tasks</a>
+                            </header>
+                            <div class="dashboard-card-body">
+                                <div class="tasks-list" id="dashboardTodayList"></div>
+                                <p class="dashboard-empty" id="dashboardTodayEmpty" hidden></p>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <aside class="dashboard-sidebar">
+                        <!-- Upcoming Deadlines -->
+                        <section class="dashboard-card" aria-labelledby="deadlines-heading">
+                            <header class="dashboard-card-header">
+                                <h2 id="deadlines-heading" class="dashboard-card-title">Upcoming Deadlines</h2>
+                                <a href="tasks.html" class="dashboard-card-link">View all</a>
+                            </header>
+                            <div class="dashboard-card-body">
+                                <div class="deadlines-list" id="dashboardDeadlineList"></div>
+                                <p class="dashboard-empty" id="dashboardDeadlineEmpty" hidden></p>
+                                <a href="tasks.html" class="dashboard-more-link" id="dashboardDeadlineMore" hidden></a>
+                            </div>
+                        </section>
+                        
+                        <!-- Weekly Progress -->
+                        <section class="dashboard-card" aria-labelledby="weekly-progress-heading">
+                            <header class="dashboard-card-header">
+                                <h2 id="weekly-progress-heading" class="dashboard-card-title">Weekly Progress</h2>
+                            </header>
+                            <div class="dashboard-card-body">
+                                <div class="weekly-chart" role="img" aria-label="Weekly task completion, Monday through Sunday: no tasks completed this week.">
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Monday: no tasks completed"></div>
+                                        <div class="weekly-day">Mon</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Tuesday: no tasks completed"></div>
+                                        <div class="weekly-day">Tue</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Wednesday: no tasks completed"></div>
+                                        <div class="weekly-day">Wed</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Thursday: no tasks completed"></div>
+                                        <div class="weekly-day">Thu</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Friday: no tasks completed"></div>
+                                        <div class="weekly-day">Fri</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Saturday: no tasks completed"></div>
+                                        <div class="weekly-day">Sat</div>
+                                    </div>
+                                    <div class="weekly-bar-container">
+                                        <div class="weekly-bar" data-value="0" title="Sunday: no tasks completed"></div>
+                                        <div class="weekly-day">Sun</div>
+                                    </div>
+                                </div>
+                                <div class="weekly-labels" aria-hidden="true">
+                                    <span>0</span>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <template id="dashboardTaskTemplate">
+        <article class="task-item">
+            <input type="checkbox" class="task-checkbox">
+            <div class="task-content">
+                <div class="task-title"></div>
+                <div class="task-meta">
+                    <span class="task-category"></span>
+                    <span class="task-priority"></span>
+                    <span class="task-time"></span>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <template id="dashboardDeadlineTemplate">
+        <article class="deadline-item">
+            <div class="deadline-title"></div>
+            <div class="deadline-date"></div>
+        </article>
+    </template>
+
+    <template id="focusTaskTemplate">
+        <article class="focus-task">
+            <label class="focus-task-check">
+                <input type="checkbox" class="focus-task-checkbox">
+                <span class="visually-hidden focus-task-check-label"></span>
+            </label>
+            <div class="focus-task-content">
+                <p class="focus-task-title"></p>
+                <div class="focus-task-meta">
+                    <span class="task-category"></span>
+                    <span class="task-priority"></span>
+                    <span class="task-time"></span>
+                </div>
+            </div>
+            <button type="button" class="icon-button focus-task-remove">
+                <span aria-hidden="true">&times;</span>
+                <span class="visually-hidden focus-task-remove-label"></span>
+            </button>
+        </article>
+    </template>
+
+    <!-- Choose daily focus dialog -->
+    <dialog class="dialog focus-dialog" id="focusDialog" aria-labelledby="focusDialogTitle" aria-describedby="focusDialogIntro">
+        <form id="focusDialogForm" novalidate>
+            <header class="dialog-header">
+                <h2 class="dialog-title" id="focusDialogTitle">Choose your focus</h2>
+                <button class="icon-button dialog-close" id="focusDialogClose" type="button" data-close-focus aria-label="Close focus selection">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+
+            <div class="dialog-body focus-dialog-body">
+                <p class="focus-dialog-intro" id="focusDialogIntro">Choose up to three tasks that matter most today. Incomplete tasks are listed first.</p>
+                <p class="focus-limit" id="focusDialogCount" role="status" aria-live="polite">0 of 3 selected</p>
+                <div class="focus-dialog-list" id="focusDialogList"></div>
+                <p class="focus-dialog-empty" id="focusDialogEmpty" hidden>No tasks are available yet. <a href="tasks.html">Add a task in My Tasks</a> to choose a focus.</p>
+                <p class="form-error" id="focusDialogError" role="alert" hidden></p>
+            </div>
+
+            <footer class="dialog-footer">
+                <button class="btn" type="button" data-close-focus>Cancel</button>
+                <button class="btn btn-primary" type="submit" id="focusDialogSave">Save focus</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <p class="visually-hidden" id="dashboardAnnouncer" role="status" aria-live="polite"></p>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/task-store.js"></script>
+    <script src="js/focus-store.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
