@@ -1,196 +1,284 @@
 # Daymark
 
-Daymark is a small, local-first productivity app built around one question: what
-matters most today? It combines a task list, a three-priority Daily Focus, and a
-weekly progress view in a calm, warm interface.
+**A calm, local-first daily planner built around three priorities.**
 
-The application is plain HTML, CSS, and JavaScript. There is no build step, no
-package manager, no framework, and no server-side component. Every asset is
-bundled locally, so the application pages make no external network requests and
-work offline.
+[**Live Demo**](https://daymark-webapp.netlify.app) · [**GitHub Repository**](https://github.com/justinebaoy/daymark)
 
-## Pages
+Daymark helps you cut through a long task list and decide what actually matters
+today. It combines task management, a three-priority Daily Focus, and a weekly
+progress view in a warm, distraction-free interface. There is no sign-up and no
+server: tasks stay in the browser.
 
-| Page | File | What it does |
-| --- | --- | --- |
-| Dashboard | `index.html` | Greeting and date, task summary cards, Daily Focus, today's tasks, upcoming deadlines, and a weekly completion chart. |
-| My Tasks | `tasks.html` | Add, edit, complete, and delete tasks. Search by title and filter by status, priority, or category; sort by due date, priority, or creation date. |
-| Weekly Overview | `overview.html` | Read-only statistics for the current week (Monday through Sunday): completed, remaining, completion rate, and a daily breakdown. |
-| Settings | `settings.html` | Light, dark, or system appearance; export tasks as JSON; clear all saved tasks. |
+Built with vanilla HTML, CSS, and JavaScript, with no build step or production
+dependencies.
 
-## Technology
+## Overview
 
-- Semantic HTML with native `<dialog>` elements, templates, and ARIA labels.
-- CSS custom properties for light and dark themes and a responsive layout.
-- Vanilla JavaScript modules exposed as small globals (`DaymarkStorage`,
-  `DaymarkTaskStore`, `DaymarkFocusStore`, `DaymarkTheme`).
-- `localStorage` for persistence. No cookies, analytics, accounts, or network
-  APIs.
-- No dependencies, bundler, transpiler, or generated output.
+Most task apps make it easy to collect work and harder to choose where to start.
+Daymark is built around a simple constraint: select at most three priorities for
+the day, then work through them with a visible progress indicator.
 
-## Running Daymark
+The app has four pages:
 
-Open `index.html` directly in a browser. All links and assets are relative, so
-the whole folder can be moved or copied freely. No install or build command is
-required.
+- **Dashboard** for today's focus, task summary, deadlines, and weekly activity.
+- **My Tasks** for creating, finding, and managing the full task list.
+- **Weekly Overview** for a Monday-to-Sunday review of completed and remaining
+  work.
+- **Settings** for appearance, JSON export, and clearing saved tasks.
 
-If you prefer to serve the folder over local HTTP, any static file server works.
-For example, with Python 3, from the project folder:
+Daymark is designed to run entirely from static files. All assets are local, and
+the application makes no external network requests.
 
-```text
-python -m http.server 8000
-```
+## Features
 
-Then open `http://localhost:8000/`.
+### Task management
 
-Serving over HTTP is optional. Keep in mind that `localStorage` is scoped to an
-origin: data saved while using `file://` will not appear at
-`http://localhost:8000`, and vice versa. Pick one way of opening the app and use
-it consistently if you want your existing tasks to remain visible.
-
-## Browser compatibility
-
-Tested:
-
-- Microsoft Edge 156 (headless) on Windows, using the automated acceptance suite
-  in `tests/`. This is the only browser and environment exercised for this
-  release.
-
-Expected to work but **not tested**:
-
-- Current versions of Google Chrome, Firefox, and Safari on desktop, and mobile
-  Safari and Chrome on recent iOS and Android versions.
-
-The app uses widely supported platform features (CSS custom properties,
-`<dialog>`, `localStorage`, `Intl.DateTimeFormat`, `matchMedia`, and
-`crypto.randomUUID` with a fallback). No browser-specific branches are intended,
-but no compatibility claim beyond the tested Edge configuration is verified.
-The bundled automated suite only drives Chromium-based browsers.
-
-## Data and persistence
-
-Tasks, focus plans, and theme preference are stored separately in the current
-browser's `localStorage`. Data is scoped to the browser and origin and does not
-sync between browsers, profiles, or devices.
-
-| Key | Contents |
-| --- | --- |
-| `daymark.tasks.v1` | JSON array of task records: `id`, `title`, `description`, `dueDate`, `priority`, `category`, `completed`, `createdAt`, `completedAt`. |
-| `daymark.focus.v1` | JSON object containing `version` and a `plans` map keyed by local date (`YYYY-MM-DD`). Each plan holds up to three `taskIds` and an optional `intention`. |
-| `daymark.theme.v1` | Appearance preference: `light`, `dark`, or `system`. |
-
-On a first visit with no saved task data, Daymark seeds six sample tasks so the
-dashboard has something to show. They are ordinary tasks and can be edited or
-deleted. Deleting every task does not re-seed them on reload.
-
-If stored task or focus data cannot be parsed, Daymark preserves the original
-value under `daymark.tasks.v1.unreadable` or `daymark.focus.v1.unreadable`
-before replacing it. These backup keys are only created when unreadable data is
-encountered.
+- Create, edit, complete, reopen, and delete tasks.
+- Add an optional description, due date and time, priority, and category.
+- Priorities: low, medium, and high.
+- Categories: work, personal, study, and other.
+- Search tasks by title.
+- Filter by status, priority, and category.
+- Sort by due date, priority, or date created.
+- Confirm before permanently deleting a task.
+- Press `/` on My Tasks to focus the search field.
 
 ### Daily Focus
 
-Daily Focus is a plan for the current local calendar day. It stores references
-to existing tasks; it does not copy task data or add focus fields to tasks.
+- Choose up to **three tasks** as the day's priorities.
+- Incomplete tasks are listed before completed ones in the picker.
+- Add an optional intention of up to **160 characters**.
+- Check off priorities directly from the dashboard.
+- See live completion progress and a summary when every priority is complete.
+- Edit the selection or remove a priority without deleting the underlying task.
+- Deleted tasks are cleaned from the plan safely.
+- A new local day starts with an empty focus; plans do not carry over.
+- Saving a focus plan keeps today plus the previous 30 calendar days.
 
-- Choose up to **three task IDs** per day. Incomplete tasks are listed before
-  completed ones.
-- An optional intention can be up to **160 characters**.
-- Checking a priority updates the underlying task and the live progress bar.
-- Removing a priority from the plan leaves the task itself untouched.
-- A task deleted from My Tasks is hidden and cleaned from the plan safely.
-- The plan resets on the next local day; it does not carry over.
-- Saving keeps today plus the **30 prior calendar days** (31 date entries) and
-  leaves future-dated plans alone.
+### Dashboard and weekly overview
 
-### Theme
+- Summary cards for tasks due today, completed tasks, and remaining tasks.
+- Today's Tasks includes active overdue tasks and tasks due today.
+- Upcoming Deadlines shows active tasks due tomorrow or later.
+- A weekly completion chart shows activity from Monday through Sunday.
+- The Weekly Overview page reports completed tasks, remaining tasks, completion
+  rate, and a per-day breakdown for the current week.
 
-The appearance setting is applied before stylesheets load to avoid a flash of
-the wrong theme. `system` follows `prefers-color-scheme` and updates when the
-operating system theme changes. The preference is saved in
-`daymark.theme.v1`; it is not tied to task data.
+### Appearance and accessibility
 
-## Exporting tasks
+- Light, dark, and system themes.
+- System mode follows the operating system preference and updates when it
+  changes.
+- Responsive layout and mobile navigation.
+- Skip link, semantic landmarks, labelled controls, and native dialogs.
+- Keyboard navigation with managed dialog focus and focus return.
+- Reduced-motion support for Daily Focus transitions.
 
-1. Open **Settings**.
-2. In **Your data**, select **Export JSON**.
-3. The browser downloads `daymark-tasks-YYYY-MM-DD.json`.
+The accessibility features above are implemented and partly covered by
+automated checks; they are not a claim of full WCAG conformance.
 
-The file is a pretty-printed JSON array of the current task records. Daily Focus
-plans and theme preferences are not included. Export is disabled when storage
-is unavailable, and an explanatory status message appears when there are no
-tasks to export.
+### Local-first data
 
-## Clearing data
+- Tasks, focus plans, and theme preference are stored in `localStorage`.
+- No account, analytics, cookies, or application network calls.
+- Export the task list as JSON from Settings.
+- Clear all tasks from Settings after an explicit confirmation.
 
-**Settings → Your data → Clear all tasks** opens a confirmation dialog and then
-permanently deletes every saved task from this browser. **This cannot be
-undone.** Export a copy first if the data matters.
+## Screenshots
 
-The clear action removes task data only. Theme preference and Daily Focus plans
-are stored under separate keys and are not removed by that button; a focus plan
-simply stops showing tasks that no longer exist. Clearing the browser's site
-data or storage removes all three keys.
+No screenshots are currently included in this repository. Useful additions would
+be genuine captures of:
 
-## Backing up and restoring
+- The dashboard with a three-task Daily Focus and visible progress.
+- My Tasks with search, filters, and a mix of priorities and categories.
+- The Weekly Overview summary and daily breakdown.
+- Settings in both light and dark themes.
+- The mobile dashboard with the navigation menu closed and open.
 
-There are two separate things to back up:
+Screenshots should be added as real project files before being referenced here.
 
-- **Project source:** copy the entire project folder, or keep it in a Git
-  repository. Restore by copying the files back or checking out the desired
-  commit. Keep backups outside the working folder so they are not served or
-  committed accidentally.
-- **Task data:** use **Settings → Export JSON**. The export is a snapshot for
-  safekeeping or use in another tool. Daymark has no in-app import feature, so
-  an exported file cannot be loaded back through the interface. Backing up the
-  project folder does **not** back up `localStorage`; that data lives in the
-  browser profile, not in the project.
+## Technology Stack
 
-Avoid committing exported JSON files, browser profiles, or test artifacts.
-The repository's `.gitignore` excludes generated exports and common temporary
-artifacts, but the safest rule is to keep them outside the project.
+| Layer | Details |
+| --- | --- |
+| Markup | Semantic HTML5, native `<dialog>` elements, and templates |
+| Styling | CSS3 with custom properties, responsive layouts, and light/dark themes |
+| Behaviour | Vanilla JavaScript (ES6+), no framework |
+| Persistence | Browser `localStorage` |
+| Browser APIs | `<dialog>`, `matchMedia`, `Intl.DateTimeFormat`, `Blob` and object URLs |
+| Hosting | Static deployment on Netlify |
+| Testing | Node.js scripts driving headless Chromium over the Chrome DevTools Protocol |
 
-## Known limitations
+There are no production dependencies, no package manager setup, and no build
+output. JavaScript is split into small modules exposed as globals rather than
+bundled.
 
-- **No hosted deployment has been verified.** The app has been exercised from
-  the local filesystem only; behaviour behind a specific host, subpath, or
-  cache configuration is untested.
-- **Accessibility testing is incomplete.** The automated suite includes a
-  reduced-motion check, but there has been no screen-reader testing and no
-  testing on physical mobile or tablet devices. Keyboard flows were exercised
-  during development but are not comprehensively covered by the retained suite.
-- **Typography varies by operating system.** Daymark uses a system-font stack
-  rather than a bundled web font. Windows renders Segoe UI, macOS renders San
-  Francisco, and Android renders Roboto, so letter shapes and line breaks can
-  differ slightly. Layout was visually checked on Windows with Edge only.
-- **No cross-device sync.** Data is local to one browser profile and origin.
-  Private browsing, clearing site data, or browser storage limits can remove it.
-- **Export only.** There is no import or restore UI for exported JSON.
-- **Automated browser coverage is Chromium-only.** Firefox and Safari are
-  expected to work but are not covered by the bundled tests.
-
-## Validation
-
-Prerequisites: Node.js 22.4 or newer, and Microsoft Edge or Google Chrome
-installed for the browser suite. No `npm install` is needed.
-
-From the project folder:
+## Project Structure
 
 ```text
+Daymark/
+├── index.html              # Dashboard and Daily Focus
+├── tasks.html              # Task list, search, filters, add/edit/delete dialogs
+├── overview.html           # Weekly statistics and daily breakdown
+├── settings.html           # Theme, export, and clear-data controls
+├── css/
+│   ├── styles.css          # Tokens, layout, themes, and page styles
+│   └── components.css      # Shared buttons, cards, forms, and dialogs
+├── js/
+│   ├── theme.js            # Early theme application and persistence
+│   ├── storage.js          # localStorage access and recovery
+│   ├── task-store.js       # Task data, validation, filtering, and sorting
+│   ├── focus-store.js      # Daily Focus plans, limits, and retention
+│   ├── ui.js               # Shared UI helpers and navigation
+│   ├── dashboard.js        # Dashboard metrics, focus view, and charts
+│   ├── tasks.js            # Task page interactions
+│   ├── overview.js         # Weekly calculations and rendering
+│   └── settings.js         # Appearance, export, and clear-data behaviour
+├── tests/
+│   ├── acceptance.js       # Headless browser acceptance suite
+│   ├── static-audit.js     # Read-only structural and asset audit
+│   └── README.md           # Test prerequisites and usage
+├── .gitignore
+└── README.md
+```
+
+The files in `tests/` are development tools and are not loaded by any
+application page.
+
+## Getting Started
+
+### Live demo
+
+Open [daymark-webapp.netlify.app](https://daymark-webapp.netlify.app).
+
+The live deployment has been manually checked on a phone by the project owner.
+It has not been tested across a comprehensive matrix of browsers, devices, or
+assistive technologies.
+
+### Run locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/justinebaoy/daymark.git
+cd daymark
+```
+
+Then open `index.html` directly in a browser. There is nothing to install or
+build.
+
+Serving the folder over local HTTP is optional. For example, with Python 3:
+
+```bash
+python -m http.server 8000
+```
+
+Then visit `http://localhost:8000/`.
+
+`localStorage` is scoped to an origin, so data saved at `file://` will not appear
+at `http://localhost:8000`, and vice versa. Use one approach consistently if you
+want the same tasks to remain visible.
+
+## Data Storage and Privacy
+
+Daymark stores application data in the current browser under three keys:
+
+| Key | Contents |
+| --- | --- |
+| `daymark.tasks.v1` | JSON array of task records with id, title, description, due date, priority, category, completion state, and timestamps. |
+| `daymark.focus.v1` | JSON object containing a version and a map of local-date plans. Each plan holds up to three task IDs and an optional intention. |
+| `daymark.theme.v1` | Appearance preference: `light`, `dark`, or `system`. |
+
+On a first visit with no saved tasks, the app seeds six sample tasks. They are
+ordinary tasks and can be edited or deleted; deleting all tasks does not recreate
+them on reload.
+
+If saved task or focus data cannot be parsed, Daymark preserves the original
+value under `daymark.tasks.v1.unreadable` or `daymark.focus.v1.unreadable`
+before replacing it.
+
+Data is stored only in the browser and is scoped to the browser profile and
+origin. It does not sync between browsers or devices. Clearing browser site data
+removes the saved tasks, focus plans, and theme preference.
+
+The application does not send task data to a server, include analytics, or make
+external network requests. Data leaves the browser only when you choose to
+export it.
+
+### Export and reset
+
+- **Export:** open **Settings → Your data → Export JSON**. The download is named
+  `daymark-tasks-YYYY-MM-DD.json` and contains the task array only; focus plans
+  and theme preference are excluded.
+- **Clear:** open **Settings → Your data → Clear all tasks**. This permanently
+  deletes saved tasks after confirmation and cannot be undone. Export a copy
+  first if the data matters.
+- The clear button removes tasks only. Theme preference and Daily Focus data use
+  separate keys and remain until browser site data is cleared.
+- There is no in-app import feature for exported JSON.
+
+## Testing and Validation
+
+The repository includes a portable static audit and a headless acceptance suite.
+No framework or package installation is required.
+
+**Prerequisites:** Node.js 22.4 or newer, plus Microsoft Edge or Google Chrome
+for the browser suite.
+
+From the project root:
+
+```bash
 node tests/static-audit.js
 node tests/acceptance.js
 ```
 
-The static audit checks local references, document structure, IDs, ARIA targets,
-script order, storage keys, and external URLs without launching a browser.
+| Command | What it checks |
+| --- | --- |
+| `node tests/static-audit.js` | Local references, document structure, IDs, ARIA targets, script order, storage keys, external URLs, and application network APIs. |
+| `node tests/acceptance.js` | Daily Focus behaviour, task management regressions, export, themes, keyboard and mobile navigation, reduced motion, zero external requests, and a page/viewport/theme matrix. |
 
-The acceptance suite runs **77 checks**: 17 Daily Focus functional tests, 10
-regression tests, 1 reduced-motion accessibility check, 1 zero-external-request
-release check, and a 48-cell page/viewport/theme matrix. It writes screenshots
-and `acceptance-results.json` to the operating system temp directory, not into
-the project.
+The acceptance suite contains **77 checks**:
 
-See `tests/README.md` for prerequisites, environment variables, artifacts, and
-how to interpret failures.
+- 17 Daily Focus functional tests.
+- 10 regression tests.
+- 1 reduced-motion accessibility check.
+- 1 zero-external-request release check.
+- 48 page × viewport × theme matrix checks.
 
-Deployment pipeline verified through Github and Netlify.
+The most recent local run passed **77/77** using Node.js 24.14.1 and headless
+Microsoft Edge 156 on Windows. The matrix checks rendering, key content,
+horizontal overflow, and console errors; it is not a pixel-diff visual baseline.
+Browser automation covers Chromium-based browsers only.
+
+Test artifacts are written to the operating system's temporary directory, not
+into the repository. See [`tests/README.md`](tests/README.md) for environment
+variables, skip options, and artifact locations.
+
+## Known Limitations
+
+- The live deployment has been manually checked on a phone by the project owner.
+  Comprehensive cross-browser, cross-device, and screen-reader testing has not
+  been performed.
+- Automated browser tests run only in Chromium-based browsers. Firefox and Safari
+  are not covered by the suite.
+- Data is local to one browser profile and origin. There is no account system,
+  cloud sync, or multi-device support.
+- Clearing site data, private browsing, or browser storage limits can remove
+  saved tasks.
+- Exported JSON cannot be imported back through the interface.
+- The hosted site does not include a service worker, so offline use of the hosted
+  URL is not guaranteed. The app does work from local files without a network
+  connection.
+- Typography uses a system-font stack, so rendering varies by operating system.
+- The accessibility checks are limited and do not replace a screen-reader or
+  manual accessibility audit.
+
+## Future Improvements
+
+- Add genuine screenshots and a short demo recording to this README.
+- Add JSON import so exported task data can be restored through the UI.
+- Expand automated coverage to Firefox and WebKit, and add an automated
+  accessibility audit.
+- Add a service worker and web app manifest for installable offline use.
+- Consider recurring tasks and optional reminders while keeping the app
+  local-first.
