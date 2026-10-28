@@ -86,16 +86,29 @@ automated checks; they are not a claim of full WCAG conformance.
 
 ## Screenshots
 
-No screenshots are currently included in this repository. Useful additions would
-be genuine captures of:
+### Dashboard
 
-- The dashboard with a three-task Daily Focus and visible progress.
-- My Tasks with search, filters, and a mix of priorities and categories.
-- The Weekly Overview summary and daily breakdown.
-- Settings in both light and dark themes.
-- The mobile dashboard with the navigation menu closed and open.
+![Dashboard in dark mode with summary cards and the Daily Focus empty state](screenshots/dashboard.png)
 
-Screenshots should be added as real project files before being referenced here.
+*The dashboard's task summary and Daily Focus, ready for the day's priorities.*
+
+### My Tasks
+
+![My Tasks page with search, filters, and tasks showing status, priority, and category](screenshots/tasks.png)
+
+*Search, filters, and task details in the My Tasks view.*
+
+### Weekly Overview
+
+![Weekly Overview showing completed and remaining tasks, completion rate, and daily breakdown](screenshots/weekly-overview.png)
+
+*Weekly totals and a Monday-to-Sunday completion breakdown.*
+
+### Settings
+
+![Settings page with light, dark, and system theme options, export, and clear actions](screenshots/settings.png)
+
+*Appearance and data controls in Settings.*
 
 ## Technology Stack
 

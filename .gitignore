@@ -42,7 +42,11 @@ chrome-profile*/
 # Temporary audit and test artifacts
 audit/
 audits/
-screenshots/
+screenshots/*
+!screenshots/dashboard.png
+!screenshots/tasks.png
+!screenshots/weekly-overview.png
+!screenshots/settings.png
 test-output/
 test-results/
 coverage/
